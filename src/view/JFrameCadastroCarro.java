@@ -5,6 +5,12 @@
  */
 package view;
 
+import dao.CarroDAO;
+import database.Utilitarios;
+import java.sql.Date;
+import javax.swing.JOptionPane;
+import model.Carro;
+
 /**
  *
  * @author Alunos
@@ -84,79 +90,66 @@ public class JFrameCadastroCarro extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabelCodigo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabelCodigo.setForeground(new java.awt.Color(0, 0, 0));
         jLabelCodigo.setText("Código");
 
         jLabelNome.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabelNome.setForeground(new java.awt.Color(0, 0, 0));
         jLabelNome.setText("Nome");
 
         jLabelCor.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabelCor.setForeground(new java.awt.Color(0, 0, 0));
         jLabelCor.setText("Cor");
 
         jLabelFabricante.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabelFabricante.setForeground(new java.awt.Color(0, 0, 0));
         jLabelFabricante.setText("Fabricante");
 
         jLabelPlaca.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabelPlaca.setForeground(new java.awt.Color(0, 0, 0));
         jLabelPlaca.setText("Placa");
 
         jLabelChassi.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabelChassi.setForeground(new java.awt.Color(0, 0, 0));
         jLabelChassi.setText("Chassi");
 
         jLabelQuilometragem.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabelQuilometragem.setForeground(new java.awt.Color(0, 0, 0));
         jLabelQuilometragem.setText("Quilometragem");
 
         jLabelPotencia.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabelPotencia.setForeground(new java.awt.Color(0, 0, 0));
         jLabelPotencia.setText("Potência");
 
         jLabelDataCompra.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabelDataCompra.setForeground(new java.awt.Color(0, 0, 0));
         jLabelDataCompra.setText("Data da Compra");
 
         jLabelQuantidadePortas.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabelQuantidadePortas.setForeground(new java.awt.Color(0, 0, 0));
         jLabelQuantidadePortas.setText("Quantidade de Portas");
 
         jLabelQuantidadeBatidas.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabelQuantidadeBatidas.setForeground(new java.awt.Color(0, 0, 0));
         jLabelQuantidadeBatidas.setText("Quantidade de Batidas");
 
         jLabelRenavam.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabelRenavam.setForeground(new java.awt.Color(0, 0, 0));
         jLabelRenavam.setText("Renavam");
 
         jLabelAnoLancamento.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabelAnoLancamento.setForeground(new java.awt.Color(0, 0, 0));
         jLabelAnoLancamento.setText("Ano de Lançamento");
 
         jLabelAnoFabricacao.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabelAnoFabricacao.setForeground(new java.awt.Color(0, 0, 0));
         jLabelAnoFabricacao.setText("Ano de Fabricação");
 
         jLabelTipoPneu.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabelTipoPneu.setForeground(new java.awt.Color(0, 0, 0));
         jLabelTipoPneu.setText("Tipo de Pneu");
 
         jLabelEstaFuncionando.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabelEstaFuncionando.setForeground(new java.awt.Color(0, 0, 0));
         jLabelEstaFuncionando.setText("Está Funcionando ");
 
         jLabelPermitidaCirculacao.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabelPermitidaCirculacao.setForeground(new java.awt.Color(0, 0, 0));
         jLabelPermitidaCirculacao.setText("Permitida Circulação");
 
         jLabelDescricao.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabelDescricao.setForeground(new java.awt.Color(0, 0, 0));
         jLabelDescricao.setText("Descrição do Carro");
 
         jButtonSalvar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButtonSalvar.setText("Salvar");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
 
         jButtonCancelar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButtonCancelar.setText("Cancelar");
@@ -181,22 +174,18 @@ public class JFrameCadastroCarro extends javax.swing.JFrame {
 
         buttonGroupEstaFuncionando.add(jRadioButtonEstaFuncionadoSim);
         jRadioButtonEstaFuncionadoSim.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jRadioButtonEstaFuncionadoSim.setForeground(new java.awt.Color(0, 0, 0));
         jRadioButtonEstaFuncionadoSim.setText("Sim");
 
         buttonGroupEstaFuncionando.add(jRadioButtonEstaFuncionadoNao);
         jRadioButtonEstaFuncionadoNao.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jRadioButtonEstaFuncionadoNao.setForeground(new java.awt.Color(0, 0, 0));
         jRadioButtonEstaFuncionadoNao.setText("Não");
 
         buttonGroupPermiridaCirculacao.add(jRadioButtonPermitidaCirculacaoSim);
         jRadioButtonPermitidaCirculacaoSim.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jRadioButtonPermitidaCirculacaoSim.setForeground(new java.awt.Color(0, 0, 0));
         jRadioButtonPermitidaCirculacaoSim.setText("Sim");
 
         buttonGroupPermiridaCirculacao.add(jRadioButtonPermitidaCirculacaoNao);
         jRadioButtonPermitidaCirculacaoNao.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jRadioButtonPermitidaCirculacaoNao.setForeground(new java.awt.Color(0, 0, 0));
         jRadioButtonPermitidaCirculacaoNao.setText("Não");
 
         jTextAreaDescricao.setColumns(20);
@@ -208,6 +197,7 @@ public class JFrameCadastroCarro extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jFormattedTextFieldDataCompra.setToolTipText("21/8/2015");
         jFormattedTextFieldDataCompra.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         try {
@@ -222,7 +212,6 @@ public class JFrameCadastroCarro extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        jComboBoxFabricante.setForeground(new java.awt.Color(0, 0, 0));
         jComboBoxFabricante.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Audi\t", "Bentley\t", "Bugatti\t", "Lamborghini\t", "MAN\t", "Porsche\t", "Scania\t", "SEAT\t", "Škoda\t", "Volkswagen" }));
         jComboBoxFabricante.setSelectedIndex(-1);
         jComboBoxFabricante.addActionListener(new java.awt.event.ActionListener() {
@@ -231,8 +220,7 @@ public class JFrameCadastroCarro extends javax.swing.JFrame {
             }
         });
 
-        jComboBoxQuantidadesPortas.setForeground(new java.awt.Color(0, 0, 0));
-        jComboBoxQuantidadesPortas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nenhuma", "1 Porta", "2 Portas", "3 Portas", "4 Portas", "5 Portas", "6 Portas", "7 Portas", "8 Portas", "9 Portas", "10 Portas", " " }));
+        jComboBoxQuantidadesPortas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nenhuma", "1 ", "2 ", "3 ", "4" }));
         jComboBoxQuantidadesPortas.setSelectedIndex(-1);
         jComboBoxQuantidadesPortas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,11 +228,9 @@ public class JFrameCadastroCarro extends javax.swing.JFrame {
             }
         });
 
-        jComboBoxCor.setForeground(new java.awt.Color(0, 0, 0));
         jComboBoxCor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Água", "Água-marinha média", "Alizarina", "Amarelo esverdeado", "Amarelo queimado", "Âmbar\t", "Ameixa\t ", "Ametista\t ", "Aspargo\t ", "Azul\t", "Azul ardósia", "Azul ardósia claro\t", "Azul ardósia escuro\t", "Azul ardósia médio\t", "Azul areado\t \t", "Azul aço\t ", "Azul aço claro\t \t", "Azul cadete\t \t", "Azul camarada\t \t", "Azul celeste brilhante\t \t", "Azul claro\t \t", "Azul cobalto\t \t", "Azul céu\t ", "Azul céu claro\t ", "Azul céu profundo\t", "Azul escuro\t ", "Azul flor de milho\t", "Azul força aérea\t \t", "Azul furtivo\t ", "Azul manteiga", "Azul marinho\t ", "Azul meia-noite\t ", "Azul médio\t ", "Azul petróleo\t ", "Azul real\t ", "Azul taparuere\t ", "Azul violeta\t \t", "Açafrão\t ", "Bordô\t ", "Borgonha\t \t", "Bronze\t \t", "Caramelo\t \t", "Cardo\t \t", "Carmesim\t \t", "Carmim\t \t", "Castanho avermelhado\t", "Castanho claro\t \t", "Cenoura\t \t", "Cereja\t ", "Cereja Hollywood\t", "Chocolate\t ", "Ciano\t ", "Cinza\t \t", "Cinza ardósia\t ", "Cinza ardósia claro\t ", "Cinza ardósia escuro\t ", "Cinza escuro\t ", "Cinza fosco\t", "Cobre\t \t", "Coral\t \t", "Coral claro\t ", "Couro\t \t", "Caqui escuro\t \t", "Dainise\t \t", "Dourado\t \t", "Dourado escuro\t \t", "Escarlate\t ", "Esmeralda\t \t", "Feldspato\t ", "Ferrugem\t \t", "Fuligem\t \t", "Fúchsia\t \t", "Grená\t \t", "Herbal\t \t", "Índigo\t \t", "Jade\t \t", "Jambo\t \t", "Jabuti preto\t \t", "Laranja\t \t", "Laranja escuro\t", "Lilás\t ", "Limão (cor)\t \t", "Madeira\t ", "Magenta\t ", "Magenta escuro\t", "Malva\t ", "Marrom\t", "Marrom amarelado\t", "Marrom claro\t \t", "Marrom rosado\t ", "Marrom sela\t \t", "Naval\t \t", "Ocre\t ", "Oliva\t \t", "Oliva escura\t \t", "Oliva parda\t \t", "Orquídea\t \t", "Orquídea escura\t ", "Orquídea média\t ", "Ouro\t \t", "Pele\t \t", "Prata\t \t", "Preto\t \t", "Púrpura\t", "Púrpura média\t", "Quantum\t ", "Rosa\t ", "Rosa brilhante\t ", "Rosa chocante\t ", "Rosa claro\t \t", "Rosa profundo\t ", "Roxo\t \t", "Rútilo\t \t", "Salmão\t ", "Salmão claro\t \t", "Salmão escuro\t \t", "Siena\t \t", "Sépia\t ", "Terracota\t \t", "Tijolo refratário\t ", "Tomate\t \t", "Triássico\t \t", "Turquesa\t \t", "Turquesa escura\t \t", "Turquesa média\t ", "Urucum\t \t", "Verde\t \t", "Verde espectro\t ", "Verde amarelado\t ", "Verde claro\t \t", "Verde escuro\t ", "Verde floresta\t \t", "Verde lima\t \t", "Verde grama\t \t", "Verde mar claro\t \t", "Verde mar escuro\t \t", "Verde mar médio\t", "Verde militar\t \t", "Verde Paris\t \t", "Verde primavera\t \t", "Verde primavera médio\t \t", "Verde pálido\t \t", "Verde-azulado\t \t", "Vermelho\t \t", "Vermelho escuro\t \t", "Vermelho indiano\t \t", "Vermelho violeta\t \t", "Vermelho violeta médio\t \t", "Vermelho violeta pálido\t", "Violeta\t ", "Violeta escuro" }));
         jComboBoxCor.setSelectedIndex(-1);
 
-        jComboBoxTipoPneu.setForeground(new java.awt.Color(0, 0, 0));
         jComboBoxTipoPneu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Off-road", "Misto", "Verde" }));
         jComboBoxTipoPneu.setSelectedIndex(-1);
 
@@ -392,14 +378,10 @@ public class JFrameCadastroCarro extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabelFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(9, 9, 9))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jComboBoxTipoPneu, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabelTipoPneu, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jComboBoxFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBoxTipoPneu, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelTipoPneu, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jComboBoxFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -455,7 +437,7 @@ public class JFrameCadastroCarro extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldCodigoActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        // TODO add your handling code here:
+       dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jTextFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeActionPerformed
@@ -469,6 +451,96 @@ public class JFrameCadastroCarro extends javax.swing.JFrame {
     private void jComboBoxQuantidadesPortasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxQuantidadesPortasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxQuantidadesPortasActionPerformed
+
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        Carro meuCarro = new Carro();
+        
+        //Comando para salvar os dados dos JTextField
+        
+        meuCarro.setNome(jTextFieldNome.getText());
+        
+        meuCarro.setChassi(jTextFieldChassi.getText());
+        
+        meuCarro.setRenavam(Integer.parseInt(
+                jTextFieldREnavam.getText()));
+        
+        meuCarro.setPotencia(Float.parseFloat(
+                jTextFieldPotencia.getText()));
+  
+        
+         //Comando para salvar os dados dos JSpinner
+        
+        meuCarro.setAnoFabricacao(Short.parseShort(
+                jSpinnerAnoFabricacao.getValue().toString()));
+        
+        meuCarro.setAnoLancamento(Short.parseShort(
+                jSpinnerAnoLancamento.getValue().toString()));
+        
+        meuCarro.setQuantidadeBatidas(Byte.parseByte(
+                jSpinnerQuantidadeBatidas.getValue().toString()));
+        
+        
+        
+         //Comando para salvar os dados dos ComboBox
+        
+        meuCarro.setFabricante(String.valueOf(
+                jComboBoxFabricante.getSelectedItem()));
+        
+        meuCarro.setCor(String.valueOf(
+                jComboBoxCor.getSelectedItem()));
+        
+        meuCarro.setQuantidadePortas(Byte.parseByte(
+                jComboBoxQuantidadesPortas.getSelectedItem().toString()));
+        
+        meuCarro.setTipoPneu(Short.parseShort(
+                jComboBoxTipoPneu.getSelectedItem().toString()));
+        
+ 
+         //Comando para salvar os dados dos FormattedTextField
+        
+        //2 1 / 0 8 / 2 0 1 7
+        //* * * * * * * * * *
+        //1 2 3 4 5 6 7 8 9 10 Posições da Data
+        
+        String dataCompra = jFormattedTextFieldDataCompra.getText();
+        int ano = Integer.parseInt(dataCompra.substring(6, 10));
+        int mes = Integer.parseInt(dataCompra.substring(3, 5));
+        int dia = Integer.parseInt(dataCompra.substring(0, 2));
+        meuCarro.setDataCompra(new Date(ano, mes, dia));
+        
+        meuCarro.setPlaca(jFormattedTextFieldPlaca.getText());
+        
+        meuCarro.setQuilometragem(Float.parseFloat(
+                jFormattedTextFieldQuilometragem.getText()));
+        
+        
+        
+        
+        
+        
+        
+        //Comando para salvar os dados dos RadioButton
+        
+        meuCarro.setEstaFuncional(jRadioButtonEstaFuncionadoSim.isSelected());
+        
+        meuCarro.setEstaFuncional(jRadioButtonEstaFuncionadoNao.isSelected());
+        
+        meuCarro.setPermitidaCirculacao(
+                jRadioButtonPermitidaCirculacaoSim.isSelected());
+        
+        meuCarro.setPermitidaCirculacao(
+                jRadioButtonPermitidaCirculacaoNao.isSelected());
+                
+        CarroDAO dao = new CarroDAO();
+        int codigo = dao.inserir(meuCarro);
+        if(codigo != Utilitarios.NAO_FOI_POSSIVEL_INSERIR){
+            JOptionPane.showMessageDialog(null,"Cadastro realizado com sucesso");
+        }else{
+            JOptionPane.showMessageDialog(null,"Não foi possivel inserir");
+        }
+       
+        
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     /**
      * @param args the command line arguments
