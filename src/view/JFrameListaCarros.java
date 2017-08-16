@@ -34,7 +34,7 @@ public class JFrameListaCarros extends JFrame implements JFrameComportamentosInt
 
     @Override
     public void criarTela() {
-        setSize(600, 600);
+        setSize(1000, 700);
         setLocationRelativeTo(null);
         setLayout(null);
         setResizable(false);
@@ -50,10 +50,25 @@ public class JFrameListaCarros extends JFrame implements JFrameComportamentosInt
                 return false;
             }
         };
+        modelo.addColumn("Id");
         modelo.addColumn("Fabricante");
         modelo.addColumn("Nome");
         modelo.addColumn("Placa");
         modelo.addColumn("Cor");
+        modelo.addColumn("Renavam");
+        modelo.addColumn("Ano de Fabricação");
+        modelo.addColumn("Ano de Lançamento");
+        modelo.addColumn("Tipo de Pneu");
+        modelo.addColumn("Quantidade de Portas");
+        modelo.addColumn("Quantidade de Batidas");
+        modelo.addColumn("Chassi");
+        modelo.addColumn("Quilometragem");
+        modelo.addColumn("Potência");
+        modelo.addColumn("Data da Compra do Carro");
+        modelo.addColumn("Está Funcional ");
+        modelo.addColumn("Permitida Circulação");
+        modelo.addColumn("Descrição");
+        
         
         popularJTable();
         jTable = new JTable(modelo);
@@ -63,7 +78,7 @@ public class JFrameListaCarros extends JFrame implements JFrameComportamentosInt
 
     @Override
     public void definirLocalizacao() {
-        scroll.setBounds(10, 10, 500, 500);
+        scroll.setBounds(10, 10, 975, 500);
     }
 
     @Override
@@ -75,10 +90,24 @@ public class JFrameListaCarros extends JFrame implements JFrameComportamentosInt
         ArrayList<Carro>carros = new CarroDAO().retornarListagem();
         for (Carro carro : carros){
             modelo .addRow(new Object[]{
+                carro.getId(),
                 carro.getFabricante(),
                 carro.getNome(),
                 carro.getPlaca(),
-                carro.getCor()
+                carro.getCor(),
+                carro.getRenavam(),    
+                carro.getAnoFabricacao(),    
+                carro.getAnoLancamento(),    
+                carro.getTipoPneu(),    
+                carro.getQuantidadePortas(),    
+                carro.getQuantidadeBatidas(),    
+                carro.getChassi(),    
+                carro.getQuilometragem(),    
+                carro.getPotencia(),    
+                carro.getDataCompra(),    
+                carro.isEstaFuncional(),    
+                carro.isPermitidaCirculacao(),    
+                carro.getDescricao()
             });
         }        
     }
