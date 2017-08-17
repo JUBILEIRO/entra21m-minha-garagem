@@ -458,6 +458,8 @@ public class JFrameCadastroCarro extends javax.swing.JFrame {
         
         meuCarro.setPotencia(Float.parseFloat(
                 jTextFieldPotencia.getText()));
+        
+        meuCarro.setDescricao(jTextAreaDescricao.getText());
   
         
          //Comando para salvar os dados dos JSpinner
@@ -506,6 +508,8 @@ public class JFrameCadastroCarro extends javax.swing.JFrame {
         
         meuCarro.setPermitidaCirculacao(
                 jRadioButtonPermitidaCirculacaoSim.isSelected());
+        
+        
                 
         CarroDAO dao = new CarroDAO();
         if(!jLabelCodigo1.getText().equals("")){
