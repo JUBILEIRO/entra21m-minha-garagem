@@ -40,3 +40,14 @@ CREATE TABLE IF NOT EXISTS carros (
 
     descricao TEXT
 );
+
+DROP TABLE IF EXISTS categorias; # Excluir a tabela de categorias se existir.
+
+CREATE TABLE IF NOT EXISTS categorias( # Cria a tabela de categorias se ela não existir.
+    
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) UNIQUE NOT NULL, # Não permite ser vazio e é único.
+    descricao TEXT,
+    ativo BOOLEAN DEFAULT TRUE # Vai conter o valor false caso não for passado nada no INSERT. 
+
+);
