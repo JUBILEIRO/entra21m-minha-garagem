@@ -5,11 +5,28 @@
  */
 package view;
 
+import dao.CategoriaDAO;
+import database.Utilitarios;
+import javax.swing.JOptionPane;
+import model.Categoria;
+
 /**
  *
  * @author Alunos
  */
 public class JFrameCadastroCategoria extends javax.swing.JFrame {
+
+    public JFrameCadastroCategoria(Categoria categoria) {
+        initComponents();
+        jLabelIdCodigo.setText(String.valueOf(categoria.getId()));
+        jTextFieldNome.setText(categoria.getNome());
+        jTextAreaDescricao.setText(categoria.getDescricao());
+        if (categoria.isAtivo()) {
+            jRadioButtonAtivo.setSelected(true);
+        } else {
+            jRadioButtonInativo.setSelected(true);
+        }
+    }
 
     /**
      * Creates new form JFrameCadastroCategoria
@@ -41,7 +58,7 @@ public class JFrameCadastroCategoria extends javax.swing.JFrame {
         jRadioButtonInativo = new javax.swing.JRadioButton();
         jButtonSalvar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabelId.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelId.setText("Id");
@@ -72,6 +89,11 @@ public class JFrameCadastroCategoria extends javax.swing.JFrame {
         jButtonSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonSalvar.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jButtonSalvar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,6 +152,32 @@ public class JFrameCadastroCategoria extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        Categoria cat = new Categoria();
+        cat.setNome(jTextFieldNome.getText());
+        cat.setDescricao(jTextAreaDescricao.getText());
+        cat.setAtivo(jRadioButtonAtivo.isSelected());
+        if (jLabelIdCodigo.getText().equals("")) {
+            int codigoCategoria = new CategoriaDAO().inserir(cat);
+            if (codigoCategoria == Utilitarios.NAO_FOI_POSSIVEL_INSERIR) {
+                JOptionPane.showMessageDialog(null, "Não foi possível inserir!");
+            } else {
+                cat.setId(codigoCategoria);
+                jLabelIdCodigo.setText(String.valueOf(codigoCategoria));
+                JOptionPane.showMessageDialog(null, cat.getNome() + "inserida com sucesso");
+            }
+        }else{
+            int id = Integer.parseInt(jLabelIdCodigo.getText());
+            cat.setId(id);
+            int codigoAlteracao = new CategoriaDAO().alterar(cat);
+            if(codigoAlteracao == Utilitarios.NAO_FOI_POSSIVEL_ALTERAR){
+              JOptionPane.showMessageDialog(null, "Não foi possível alterar!");
+            }else{
+                JOptionPane.showMessageDialog(null, cat.getNome() + "alterada com sucesso!");
+            }
+        }
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     /**
      * @param args the command line arguments

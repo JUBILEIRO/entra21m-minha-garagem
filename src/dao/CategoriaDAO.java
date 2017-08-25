@@ -23,8 +23,8 @@ public class CategoriaDAO {
 
     public int inserir(Categoria categoria) {
         int codigoInserido = Utilitarios.NAO_FOI_POSSIVEL_INSERIR;
-        String sql = "INSERT INTO categorias (nome, descricao)";
-        sql += "\nVALUE (?,?)";
+        String sql = "INSERT INTO categorias (nome, descricao, ativo)";
+        sql += "\nVALUE (?,?,?)";
         try {
             /*Classe utilizada para criar o sql substituindo a interrogação
              RETURN_GENERATED_KEYS -> utilizado para informar para 
@@ -35,6 +35,7 @@ public class CategoriaDAO {
             //substitui as interrogações.
             ps.setString(1, categoria.getNome());
             ps.setString(2, categoria.getDescricao());
+            ps.setBoolean(3,categoria.isAtivo());
             //executa o comando no bd.
             ps.execute();
             /*classe utilizada para trabalhar com as informações que o 
@@ -58,7 +59,7 @@ public class CategoriaDAO {
         int codigoAlterado = Utilitarios.NAO_FOI_POSSIVEL_ALTERAR;
         String sql = "UPDATE categorias SET";
         sql += "\nnome = ?,";
-        sql += "\ndescricao = ?,";
+        sql += "\ndescricao = ?";
         sql += "\nWHERE id = ?";
         try {
             PreparedStatement ps = Conexao.conectar().prepareStatement(sql);
@@ -68,7 +69,7 @@ public class CategoriaDAO {
             codigoAlterado = ps.executeUpdate();
         } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(null, sqle.getMessage(),
-                    "Erro ao tentar Alterar CAtegoriaDAO",
+                    "Erro ao tentar Alterar CategoriaDAO",
                     JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexao.desconectar();
@@ -78,7 +79,7 @@ public class CategoriaDAO {
 
     public int excluir(int id) {
         int codigoExcluido = Utilitarios.NAO_FOI_POSSIVEL_EXCLUIR;
-        String sql = "DELETE FROM categorias WHEWRE id  = ?";
+        String sql = "DELETE FROM categorias WHERE id  = ?";
         try {
             PreparedStatement ps = Conexao.conectar().prepareStatement(sql);
             ps.setInt(1, id);
@@ -123,7 +124,7 @@ public class CategoriaDAO {
     public Categoria buscarCategoriaPorid(int codigo) {
         Categoria categoria = null;
         String sql = "SELECT nome, descricao, ativo FROM categorias";
-        sql += "WHERE id = ?";
+        sql += "\nWHERE id = ?";
         try {
             PreparedStatement ps = Conexao.conectar().prepareStatement(sql);
             ps.setInt(1, codigo);

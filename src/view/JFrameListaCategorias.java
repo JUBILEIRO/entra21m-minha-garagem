@@ -6,7 +6,11 @@
 package view;
 
 import dao.CategoriaDAO;
+import database.Utilitarios;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import model.Categoria;
 
@@ -21,6 +25,7 @@ public class JFrameListaCategorias extends javax.swing.JFrame {
      */
     public JFrameListaCategorias() {
         initComponents();
+        clickTabela();
     }
 
     /**
@@ -39,6 +44,7 @@ public class JFrameListaCategorias extends javax.swing.JFrame {
         jButtonCadastrar = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -53,7 +59,12 @@ public class JFrameListaCategorias extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jTableCategorias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -101,17 +112,29 @@ public class JFrameListaCategorias extends javax.swing.JFrame {
         jButtonEditar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/editar.png"))); // NOI18N
         jButtonEditar.setText("Editar");
+        jButtonEditar.setEnabled(false);
         jButtonEditar.setHideActionText(true);
         jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEditar.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
 
         jButtonExcluir.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButtonExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/excluir.png"))); // NOI18N
         jButtonExcluir.setText("Excluir");
+        jButtonExcluir.setEnabled(false);
         jButtonExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonExcluir.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jButtonExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonExcluirMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,19 +142,22 @@ public class JFrameListaCategorias extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(176, 176, 176)
                 .addComponent(jButtonExcluir)
-                .addGap(26, 26, 26)
+                .addGap(65, 65, 65)
                 .addComponent(jButtonEditar)
-                .addGap(29, 29, 29)
+                .addGap(61, 61, 61)
                 .addComponent(jButtonCadastrar)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonEditar, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButtonCadastrar, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -144,12 +170,44 @@ public class JFrameListaCategorias extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
-        
+        new JFrameCadastroCategoria().setVisible(true);
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
 
+    private void jButtonExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonExcluirMouseClicked
+        if (jTableCategorias.getSelectedRow() > -1) {
+            int id = Integer.parseInt(jTableCategorias.getValueAt(jTableCategorias.
+                    getSelectedRow(), 0).toString());
+            String nome = jTableCategorias.getValueAt(jTableCategorias.getSelectedRow(), 1).toString();
+
+            int codigoExclusao = new CategoriaDAO().excluir(id);
+            if (codigoExclusao == Utilitarios.NAO_FOI_POSSIVEL_EXCLUIR) {
+                JOptionPane.showMessageDialog(null, "Não foi possível excluir");
+            } else {
+                popularLista();
+                jButtonEditar.setEnabled(false);
+                jButtonExcluir.setEnabled(false);
+                JOptionPane.showMessageDialog(null, nome + "foi excluído com sucesso");
+            }
+        }
+    }//GEN-LAST:event_jButtonExcluirMouseClicked
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        popularLista();
+    }//GEN-LAST:event_formWindowActivated
+
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        if (jTableCategorias.getSelectedRow() > -1) {
+            
+        }
+            int id = Integer.parseInt(jTableCategorias.getValueAt(jTableCategorias.
+                    getSelectedRow(), 0).toString());
+            Categoria categoria = new CategoriaDAO().buscarCategoriaPorid(id);
+            new JFrameCadastroCategoria(categoria).setVisible(true);
+    }//GEN-LAST:event_jButtonEditarActionPerformed
+
     /**
-     * @param args the command line arguments
-     */
+         * @param args the command line arguments
+         */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -182,25 +240,36 @@ public class JFrameListaCategorias extends javax.swing.JFrame {
         });
     }
 
-    public void popularLista(){
-        DefaultTableModel modelo = (DefaultTableModel)
-        jTableCategorias.getModel();
+    public void popularLista() {
+        DefaultTableModel modelo = (DefaultTableModel) jTableCategorias.getModel();
         ArrayList<Categoria> categorias = new CategoriaDAO()
-        .restornarListaCategorias();
+                .restornarListaCategorias();
+        modelo.setRowCount(0);
         for (Categoria categoria : categorias) {
             modelo.addRow(new Object[]{
-            categoria.getId(), categoria.getNome(), categoria.isAtivo()
-        });
+                categoria.getId(), categoria.getNome(), categoria.isAtivo()
+            });
         }
- 
     }
-    
+
+    public void clickTabela() {
+        jTableCategorias.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                jButtonEditar.setEnabled(true);
+                jButtonExcluir.setEnabled(true);
+            }
+        });
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCadastrar;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTableCategorias;
     // End of variables declaration//GEN-END:variables

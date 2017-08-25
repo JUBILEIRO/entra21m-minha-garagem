@@ -51,3 +51,25 @@ CREATE TABLE IF NOT EXISTS categorias( # Cria a tabela de categorias se ela não
     ativo BOOLEAN DEFAULT TRUE # Vai conter o valor false caso não for passado nada no INSERT. 
 
 );
+
+DROP TABLE IF EXISTS avioes;
+
+CREATE TABLE IF NOT EXISTS avioes(
+
+id INTEGER PRIMARY KEY AUTO_INCREMENT,
+id_categoria INTEGER NOT NULL,
+FOREIGN KEY (id_categoria) REFERENCES categorias(id),
+nome VARCHAR(100) NOT NULL UNIQUE
+
+);
+
+INSERT INTO categorias (nome) VALUES 
+("Baixa"),
+("Média"),
+("Alta");
+
+INSERT INTO avioes (id_categoria, nome) VALUES 
+(1, "Tecoteco"),
+(2, "Air Bus A320"),
+(2, "Air Bus 777"),
+(3, "Air Bus 747");
