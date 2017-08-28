@@ -20,6 +20,7 @@ implements JFrameComportamentosInterface{
     private JButton jButtonListaCarros;
     private JButton jButtonCadastroCarros;
     private JButton jButtonListaCategoria;
+    private JButton jButtonListaAvioes;
 
     public JFrameInicial(){
         criarTela();
@@ -44,6 +45,7 @@ implements JFrameComportamentosInterface{
        jButtonListaCarros = new JButton("Lista de Carros");
        jButtonCadastroCarros = new JButton("Cadastro de Carros");
        jButtonListaCategoria = new JButton("Lista de Categoria");
+       jButtonListaAvioes = new JButton("Lista de Aviões");
     }
 
     @Override
@@ -51,6 +53,7 @@ implements JFrameComportamentosInterface{
         jButtonListaCarros.setBounds(10, 10, 200, 35);
         jButtonCadastroCarros.setBounds(10, 55, 200, 35);
         jButtonListaCategoria.setBounds(10, 100, 200, 35);
+        jButtonListaAvioes.setBounds(10, 145, 200, 35);
     }
 
     @Override
@@ -58,6 +61,7 @@ implements JFrameComportamentosInterface{
         add(jButtonListaCarros);
         add(jButtonCadastroCarros);
         add(jButtonListaCategoria);
+        add(jButtonListaAvioes);
     }
 
     @Override
@@ -72,6 +76,10 @@ implements JFrameComportamentosInterface{
         
         jButtonListaCategoria.addActionListener((ActionEvent e) -> {
             new JFrameListaCategorias().setVisible(true);
+        });
+        
+        jButtonListaAvioes.addActionListener((ActionEvent e) -> {
+            new JFrameListaAvioes().setVisible(true);
         });
     }
     
